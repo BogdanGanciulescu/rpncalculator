@@ -38,16 +38,15 @@ class RPNHolder
                     $showResult = false;
                 }
 
-                $secondOperand  = array_pop($this->stack);
-                $firstOperand   = array_pop($this->stack);
+                $result = $this->doMath($itemInLine);
                 
-                $result     = eval("return ".$firstOperand.$itemInLine.$secondOperand.";");
                 array_push($this->stack,$result);
 
                 if($showResult && count($this->stack) == 1) {
-                    Communicate::showSuccess("Result ".$result);
+                    Communicate::showSuccess("Final result ".$result);
+                } else {
+                    Communicate::showSuccess("Partial result ". $result);
                 }
-                
             } else {
                 //push to stack
                 if(is_numeric($itemInLine)) {
@@ -58,6 +57,29 @@ class RPNHolder
                 }
             }
         }
+    }
+
+    private function doMath($operator)
+    {
+        $secondOperand  = array_pop($this->stack);
+        $firstOperand   = array_pop($this->stack);
+
+        switch($operator){
+            case '+':
+                $result = $firstOperand + $secondOperand;
+                break;
+            case '-':
+                $result = $firstOperand - $secondOperand;
+                break;
+            case '*':
+                $result = $firstOperand * $secondOperand;
+                break;
+            case '/':
+                $result = $firstOperand / $secondOperand;
+                break;
+        }
+        
+        return $result;
     }
 
     public function clearLines()
