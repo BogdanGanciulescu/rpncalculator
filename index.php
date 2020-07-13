@@ -99,7 +99,30 @@ class LineInterpretor
             return false;
         }
 
+        if($line == 'help') {
+            Help::showHelp();
+
+            return false;
+        }
+
+        if($line == 'q') {
+            Terminator::terminate();
+        }
+
         return true;
+    }
+}
+
+class Help
+{
+    public static function showHelp()
+    {
+        Communicate::showWarning("Here are the commands available: ");
+        Communicate::showWarning(" -reset -- resets the stack and you can take another round");
+        Communicate::showWarning(" -showstack -- you can see the numbers in the stack in their order");
+        Communicate::showWarning(" -help -- get this help message");
+        Communicate::showWarning(" -q -- exits the program");
+
     }
 }
 
@@ -118,5 +141,14 @@ class Communicate
     public static function showWarning($message)
     {
         echo "\e[93m".$message."\e[0m".PHP_EOL;
+    }
+}
+
+class Terminator
+{
+    public static function terminate()
+    {
+        Communicate::showSuccess('bye bye');
+        exit;
     }
 }
