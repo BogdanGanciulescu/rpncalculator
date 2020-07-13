@@ -42,11 +42,12 @@ class RPNHolder
                 
                 array_push($this->stack,$result);
 
-                if($showResult && count($this->stack) == 1) {
-                    Communicate::showSuccess("Final result ".$result);
-                } else {
-                    Communicate::showSuccess("Partial result ". $result);
-                }
+                $append = "Partial result ";
+                if($showResult && count($this->stack) == 1)
+                    $append = "Final result ";
+                
+                Communicate::showSuccess($append.$result);
+                
             } else {
                 //push to stack
                 if(is_numeric($itemInLine)) {
