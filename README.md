@@ -24,7 +24,8 @@ RPN is evaluated using a stack:
 
 ## Usage examples
 
-``` 3 3 2 * + 
+``` 
+3 3 2 * + 
 > 3
 > 3
 > 2
@@ -32,11 +33,13 @@ Partial result 6
 Final result 9
 ```
 
-``` reset
+``` 
+reset
 Lines cleared
 ```
 
-``` 4
+``` 
+4
 > 4
 3
 > 3
