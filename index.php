@@ -1,4 +1,5 @@
 <?php
+
 require('./inc/communicate.class.php');
 require('./inc/rpncontainer.class.php');
 require('./inc/help.class.php');

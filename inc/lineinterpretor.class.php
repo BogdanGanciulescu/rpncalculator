@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Defines use cases for commands that are received
+ */
+
 class LineInterpretor
 {
     public static function checkLine($line,$stackHolder)
