@@ -2,6 +2,7 @@
 
 require('./inc/rpncontainer.class.php');
 require('./inc/lineinterpretor.class.php');
+require('./inc/help.class.php');
 
 class index_test extends PHPUnit\Framework\TestCase
 {
@@ -140,5 +141,16 @@ class index_test extends PHPUnit\Framework\TestCase
         $output = $calculator->showstack('showstack',$calculator);
 
         $this->assertEquals($expectedOutput,$output);
+    }
+
+    public function testHelpCommand()
+    {
+        $expectedOutput  = "Here are the commands available: ".PHP_EOL;
+        $expectedOutput .= " -reset -- resets the stack and you can take another round".PHP_EOL;
+        $expectedOutput .= " -showstack -- you can see the numbers in the stack in their order".PHP_EOL;
+        $expectedOutput .= " -help -- get this help message".PHP_EOL;
+        $expectedOutput .= " -q -- exits the program".PHP_EOL;
+
+        $this->assertEquals(Help::getHelp(),$expectedOutput);
     }
 }

@@ -26,10 +26,8 @@ while($continueListening) {
         } else {
             Communicate::showInfo($interpretorResponse->Payload);
         }
-        
+
     } catch (Exception $e) {
         Communicate::showError($e->getMessage());
     }
-    
-
 }
