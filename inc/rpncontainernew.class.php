@@ -2,7 +2,8 @@
 
 class RPNContainer
 {
-    private $stack=array();
+    private $stack      = array();
+    public $ShowResult  = false;
 
     public function __construct()
     {
@@ -17,35 +18,27 @@ class RPNContainer
         foreach($itemsInLine as $itemInLine) {
             //check if operator and do the math else push to stack
             if(in_array($itemInLine,$operators)) {
-                $showResult = true;
-
-                if(count($this->stack) == 1) {
-                    Communicate::showError('You need more operands');
-                    $showResult = false;
+                if(count($this->stack) <= 1) {
+                    throw new Exception('You need at least 2 operands to perform an operation');
                 }
-
-                $result = $this->doMath($itemInLine);
+                
+                $result = $this->doOperation($itemInLine);
                 
                 array_push($this->stack,$result);
-
-                $append = "Partial result ";
-                if($showResult && count($this->stack) == 1)
-                    $append = "Final result ";
-                
-                Communicate::showSuccess($append.$result);
-                
+                $this->ShowResult = true;
             } else {
-                if(is_numeric($itemInLine)) {
-                    array_push($this->stack,$itemInLine);
-                    Communicate::showSuccess("> ".$itemInLine);
-                } else {
-                    Communicate::showError("You must enter valid numbers!");
-                }
+                if(!is_numeric($itemInLine))
+                    throw new Exception('You must enter valid numbers!');
+
+                array_push($this->stack,$itemInLine);
+                $this->ShowResult = false;
             }
         }
+
+        return $this->peekStack();
     }
 
-    private function doMath($operator)
+    private function doOperation($operator)
     {
         $secondOperand  = array_pop($this->stack);
         $firstOperand   = array_pop($this->stack);
@@ -68,25 +61,37 @@ class RPNContainer
         return $result;
     }
 
+    /**
+     * Gets the last value in stack
+     * @return Exception if stack is empty
+     * @return int if value is found
+     */
+    public function peekStack()
+    {
+        if(empty($this->stack)) 
+            throw new Exception('The stack is empty');
+
+        return $this->stack[(count($this->stack)-1)];
+    }
+
     public function clearLines()
     {
         $this->stack = array();
         
-        Communicate::showSuccess('Lines cleared');
+        return true;
     }
 
-    public function showLines()
+    public function showStack()
     {
-        if(empty($this->stack)) {
-            Communicate::showError('Stack is empty');
-            return;
-        }
+        if(empty($this->stack)) 
+            throw new Exception('Stack is empty');
 
-        Communicate::showSuccess(count($this->stack)." items in stack");
-
+        $ret = "";
         $stackCopy = $this->stack;
         while(count($stackCopy) > 0) {
-            Communicate::showWarning(array_pop($stackCopy));
+            $ret .= " ".array_pop($stackCopy);
         }
+        
+        return $ret;
     }
 }

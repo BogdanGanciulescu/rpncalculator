@@ -15,9 +15,7 @@ class LineInterpretor
         }
 
         if($line == 'showstack') {
-            $stackHolder->showLines();
-
-            return false;
+            return $stackHolder->showStack();
         }
 
         if($line == 'help') {
