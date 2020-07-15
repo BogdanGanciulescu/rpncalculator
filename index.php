@@ -22,7 +22,7 @@ while($continueListening) {
         if($interpretorResponse->Continue) {
             $ret = $stackHolder->addLine($line);
 
-            $stackHolder->ShowResult? Communicate::showSuccess($ret) : Communicate::showInfo($ret);
+            $stackHolder->ShowResult? Communicate::showSuccess("> ".$ret) : Communicate::showInfo("> ".$ret);
         } else {
             Communicate::showInfo($interpretorResponse->Payload);
         }

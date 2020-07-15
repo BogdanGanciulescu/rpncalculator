@@ -5,11 +5,6 @@ class RPNContainer
     private $stack      = array();
     public $ShowResult  = false;
 
-    public function __construct()
-    {
-            
-    }
-
     public function addLine($line) 
     {
         $operators   = array('-','*','/','+','=');
