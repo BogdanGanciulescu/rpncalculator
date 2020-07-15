@@ -54,4 +54,5 @@ Final result 5
 
 * use the calculator to interpret an ecuation written with infix notion and solve it using reversed polish notation (implementing shunting-yard algorithm );
 * add operations: power, square root.
+* add proper Stack data structure
 

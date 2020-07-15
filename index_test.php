@@ -1,6 +1,6 @@
 <?php 
 
-require('./inc/rpncontainernew.class.php');
+require('./inc/rpncontainer.class.php');
 require('./inc/lineinterpretor.class.php');
 
 class index_test extends PHPUnit\Framework\TestCase
@@ -121,9 +121,24 @@ class index_test extends PHPUnit\Framework\TestCase
 
     public function testShowStackOption()
     {
-        $calculator = new RPNContainer();
-        $calculator->addLine('5 5');
+        $input  = '5 5';
 
-        LineInterpretor::checkLine('showstack',$calculator);
+        $calculator = new RPNContainer();
+        $calculator->addLine($input);
+        $output = $calculator->showstack('showstack',$calculator);
+
+        $this->assertEquals($input,$output);
+    }
+
+    public function testShowStackOptionAfterOperation()
+    {
+        $input          = '5 5 5 +';
+        $expectedOutput = '5 10';
+
+        $calculator = new RPNContainer();
+        $calculator->addLine($input);
+        $output = $calculator->showstack('showstack',$calculator);
+
+        $this->assertEquals($expectedOutput,$output);
     }
 }

@@ -17,11 +17,16 @@ while($continueListening) {
     $line   = trim(fgets($handle));
 
     try {
-        if(LineInterpretor::checkLine($line,$stackHolder)){
+        $interpretorResponse = LineInterpretor::checkLine($line,$stackHolder);
+
+        if($interpretorResponse->Continue) {
             $ret = $stackHolder->addLine($line);
 
             $stackHolder->ShowResult? Communicate::showSuccess($ret) : Communicate::showInfo($ret);
+        } else {
+            Communicate::showInfo($interpretorResponse->Payload);
         }
+        
     } catch (Exception $e) {
         Communicate::showError($e->getMessage());
     }

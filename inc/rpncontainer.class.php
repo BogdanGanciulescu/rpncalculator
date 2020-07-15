@@ -85,11 +85,24 @@ class RPNContainer
     {
         if(empty($this->stack)) 
             throw new Exception('Stack is empty');
-
+        
         $ret = "";
         $stackCopy = $this->stack;
-        while(count($stackCopy) > 0) {
-            $ret .= " ".array_pop($stackCopy);
+        $stackCopyReversed = $this->reverseStack($stackCopy);
+
+        while(count($stackCopyReversed) > 0) {
+            $ret .= " ".array_pop($stackCopyReversed);
+        }
+        
+        return trim($ret);
+    }
+
+    private function reverseStack($stackToReverse) 
+    {
+        $ret = array();
+
+        while(count($stackToReverse) > 0) {
+            $ret[] = array_pop($stackToReverse);
         }
         
         return $ret;
