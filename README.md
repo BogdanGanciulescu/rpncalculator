@@ -29,13 +29,12 @@ RPN is evaluated using a stack:
 > 3
 > 3
 > 2
-Partial result 6
-Final result 9
+> 9
 ```
 
 ``` 
 reset
-Lines cleared
+The stack was reseted!
 ```
 
 ``` 
@@ -44,10 +43,9 @@ Lines cleared
 3
 > 3
 +
-Final result 7
+> 7
 2 -
-> 2
-Final result 5
+> 5
 ```
 
 ## TO DO
