@@ -16,7 +16,15 @@ while($continueListening) {
     $handle = fopen ("php://stdin","r");
     $line   = trim(fgets($handle));
 
-    if(LineInterpretor::checkLine($line,$stackHolder))
-        $stackHolder->addLine($line);
+    try {
+        if(LineInterpretor::checkLine($line,$stackHolder)){
+            $ret = $stackHolder->addLine($line);
+
+            $stackHolder->ShowResult? Communicate::showSuccess($ret) : Communicate::showInfo($ret);
+        }
+    } catch (Exception $e) {
+        Communicate::showError($e->getMessage());
+    }
+    
 
 }
